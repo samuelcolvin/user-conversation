@@ -1,0 +1,14 @@
+Django==1.8.2
+Jinja2==2.7.3
+MarkupSafe==0.23
+certifi==2015.4.28
+django-extensions==1.5.5
+django-jinja==1.4.1
+grablib==0.1.4
+ipython==3.1.0
+ply==3.6
+requests==2.7.0
+six==1.9.0
+slimit==0.8.1
+termcolor==1.1.0
+tornado==4.1

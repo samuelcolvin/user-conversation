@@ -1,0 +1,12 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+  <div class="section">
+    <strong>Conversations:</strong>
+    {% for conversation in object_list %}
+      <div>
+        <a href="">{{ conversation }}</a>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

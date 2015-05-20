@@ -1,0 +1,11 @@
+{% extends 'base.jinja' %}
+
+{% block content %}
+  <div class="section">
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" class="btn btn-primary" value="Start Conversation">
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{
+  "libs_root": "userchat/static/libs",
+  "sites":
+  {
+    "github": "https://raw.githubusercontent.com",
+    "jquery": "http://code.jquery.com",
+    "bootstrap": "{{ github }}/twbs/bootstrap/v3.3.4/dist",
+    "react": "https://fb.me/"
+  },
+  "libs":
+  {
+    "{{ jquery }}/jquery-2.1.4.js": "js/jquery.js",
+    "{{ jquery }}/jquery-2.1.4.min.js": "js/jquery.min.js",
+    "{{ jquery }}/jquery-2.1.4.min.map": "js/jquery.min.map",
+    "{{ bootstrap }}/css/bootstrap.css": "css/{{ filename }}",
+    "{{ bootstrap }}/css/bootstrap.min.css": "css/{{ filename }}",
+    "{{ bootstrap }}/css/bootstrap.css.map": "css/{{ filename }}",
+    "{{ bootstrap }}/css/bootstrap-theme.css": "css/{{ filename }}",
+    "{{ bootstrap }}/css/bootstrap-theme.min.css": "css/{{ filename }}",
+    "{{ bootstrap }}/js/bootstrap.js": "js/{{ filename }}",
+    "{{ bootstrap }}/js/bootstrap.min.js": "js/{{ filename }}",
+    "{{ bootstrap }}/fonts/glyphicons-halflings-regular.eot": "fonts/{{ filename }}",
+    "{{ bootstrap }}/fonts/glyphicons-halflings-regular.svg": "fonts/{{ filename }}",
+    "{{ bootstrap }}/fonts/glyphicons-halflings-regular.ttf": "fonts/{{ filename }}",
+    "{{ bootstrap }}/fonts/glyphicons-halflings-regular.woff": "fonts/{{ filename }}",
+    "{{ react }}/react-with-addons-0.13.3.min.js": "js/react.min.js",
+    "{{ react }}/JSXTransformer-0.13.3.js": "js/JSXTransformer.js",
+    "{{ github }}/chjj/marked/v0.3.3/marked.min.js": "js/{{ filename }}"
+  }
+}
