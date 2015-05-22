@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
                 ('text', models.TextField()),
                 ('conversation', models.ForeignKey(to='chat.Conversation')),
-                ('from_user', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
+                ('user', models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(

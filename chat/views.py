@@ -16,6 +16,7 @@ def get_ws_url(request):
     ws_url = prefix + request.get_host() + '/ws/'
     return settings.WS_URL or ws_url
 
+
 class IndexView(ListView):
     template_name = 'index.jinja'
     model = Conversation
@@ -51,8 +52,7 @@ class CustomerIndexView(FormView):
 customer_index_view = CustomerIndexView.as_view()
 
 
-
-class UserConversationView(DetailView):
+class OperatorConversationView(DetailView):
     template_name = 'conversation.jinja'
     model = Conversation
 
@@ -61,12 +61,12 @@ class UserConversationView(DetailView):
             title=self.get_object(),
             ws_url=get_ws_url(self.request),
         )
-        return super(UserConversationView, self).get_context_data(**kwargs)
+        return super(OperatorConversationView, self).get_context_data(**kwargs)
 
-user_conversation_view = UserConversationView.as_view()
+operator_conversation_view = OperatorConversationView.as_view()
 
 # FIXME
-customer_conversation_view = UserConversationView.as_view()
+customer_conversation_view = OperatorConversationView.as_view()
 
 class LowLevelView(TemplateView):
     template_name = 'low_level.jinja'

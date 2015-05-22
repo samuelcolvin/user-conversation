@@ -5,7 +5,7 @@
     <strong>Conversations:</strong>
     {% for conversation in object_list %}
       <div>
-        <a href="">{{ conversation }}</a>
+        <a href="{{ url('operator-conversation', pk=conversation.id) }}">{{ conversation }}</a>
       </div>
     {% endfor %}
   </div>

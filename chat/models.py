@@ -17,5 +17,5 @@ class Conversation(models.Model):
 class Message(models.Model):
     conversation = models.ForeignKey(Conversation)
     timestamp = models.DateTimeField(auto_now_add=True)
-    from_user = models.ForeignKey(User, null=True)
+    user = models.ForeignKey(User, null=True)
     text = models.TextField()

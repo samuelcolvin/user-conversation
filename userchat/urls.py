@@ -5,7 +5,7 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^$', 'chat.views.index_view', name='index'),
-    url(r'^conversation/(?P<pk>\d+)/$', 'chat.views.user_conversation_view', name='user-conversation'),
+    url(r'^conversation/(?P<pk>\d+)/$', 'chat.views.operator_conversation_view', name='operator-conversation'),
     url(r'^customer/$', 'chat.views.customer_index_view', name='customer-index'),
     url(r'^customer/conversation/(?P<pk>\d+)/$', 'chat.views.customer_conversation_view', name='customer-conversation'),
 

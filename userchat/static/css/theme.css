@@ -6,3 +6,11 @@
   max-height: 500px;
   min-height: 200px;
 }
+
+.message-list {
+  overflow-y: auto;
+}
+
+.message-form {
+  padding-top: 20px;
+}

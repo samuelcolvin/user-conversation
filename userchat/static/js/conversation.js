@@ -1,6 +1,41 @@
-if (!('WebSocket' in window)) {
-  alert('WebSockets are not supported by your browser.');
+function WebsocketWrapper(){
+  if (!('WebSocket' in window)) {
+    alert('WebSockets are not supported by your browser.');
+  }
+
+  console.log('connecting...');
+  var conn = new WebSocket(django_vars.ws_url);
+
+  conn.onopen = function(){
+    console.log('connected');
+    ws.send('join', JSON.stringify(django_vars));
+  };
+
+  this.send = function(action, data){
+    conn.send(action + ':' + data);
+  };
+
+  function Actions(){
+    this.msgs = function(operator, messages){
+      console.log('on_msgs:', operator, messages, 'nothing attached');
+    };
+  };
+  this.actions = new Actions();
+
+  conn.onmessage = function(evt){
+    var action = evt.data.split(':', 1)[0];
+    var operator = evt.data.substr(action.length + 1, 1);
+    var text = evt.data.substr(action.length + 2);
+    console.log(action, operator, text);
+    ws.actions[action](operator, text);
+  };
+
+  conn.onclose = function () {
+    console.log('Connection closed');
+  };
 }
+
+var ws;
 
 var Message = React.createClass({
   render: function() {
@@ -18,17 +53,45 @@ var Message = React.createClass({
 
 var MessageList = React.createClass({
   render: function() {
-    var messageNodes = this.props.data.map(function (message) {
+    var messageNodes = this.props.data.map(function (message, i) {
       return (
-        <Message author={message.author}>
+        <Message author={message.author} key={i}>
           {message.text}
         </Message>
       );
     });
+    var style = {height: ($(window).height() - 150) + 'px'};
     return (
-      <div className="messageList">
+      <div className="message-list" style={style}>
         {messageNodes}
       </div>
+    );
+  }
+});
+
+var MessageForm = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var text = React.findDOMNode(this.refs.text).value.trim();
+    if (!text) {
+      return;
+    }
+    console.log(text)
+    ws.send('msg', text);
+    React.findDOMNode(this.refs.text).value = '';
+  },
+  render: function() {
+    return (
+      <form className="message-form" onSubmit={this.handleSubmit}>
+        <div className="input-group">
+          <input type="text" className="form-control" ref="text" placeholder="ask away..."/>
+          <span className="input-group-btn">
+            <button className="btn btn-default" type="button">
+                &nbsp;<span className="glyphicon glyphicon-send"></span>&nbsp;
+            </button>
+          </span>
+        </div>
+      </form>
     );
   }
 });
@@ -37,54 +100,30 @@ var Conversation = React.createClass({
   getInitialState: function() {
     return {data: []};
   },
-  //componentDidMount: function() {
-  //    this.loadMessagesFromServer();
-  //    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-  //
-  //    console.log('connecting...');
-  //    var ws_url = $('#ws_url').data('value');
-  //    var ws = new WebSocket(ws_url);
-  //
-  //    ws.onopen = function(){
-  //      log('connected');
-  //      ws.send('get_all:' + stream);
-  //    };
-  //
-  //    ws.onmessage = function (evt) {
-  //      log('received: ' + evt.data);
-  //    };
-  //
-  //    ws.onclose = function () {
-  //      log('Connection closed');
-  //    };
-  //
-  //    function send_message(){
-  //      var msg = 'new_action:' + JSON.stringify({
-  //        author: $('#author-input').val(),
-  //        message: $('#message-input').val(),
-  //        stream: stream
-  //      });
-  //      log('sending: '+ msg);
-  //      ws.send(msg);
-  //    }
-  //    $('#send-msg').click(send_message);
-  //  }
-  //},
+  componentDidMount: function() {
+    ws = new WebsocketWrapper();
+    ws.actions.msgs = function(operator, text) {
+      messages = JSON.parse(text);
+      if (operator === '+'){
+        Array.prototype.push.apply(this.state.data, messages);
+      } else{
+        this.state.data = messages;
+      }
+
+      this.setState({data: this.state.data});
+    }.bind(this);
+  },
   render: function() {
     return (
       <div className="Conversation">
-        <MessageList data={this.props.data} />
+        <MessageList data={this.state.data} />
+        <MessageForm />
       </div>
     );
   }
 });
 
-var data = [
-  {author: "Pete Hunt", text: "This is one comment"},
-  {author: "Jordan Walke", text: "This is *another* comment"}
-];
-
 React.render(
-  <Conversation data={data} />,
+  <Conversation />,
   document.getElementById('conversation')
 );

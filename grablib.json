@@ -23,7 +23,9 @@
     "{{ bootstrap }}/fonts/glyphicons-halflings-regular.svg": "fonts/{{ filename }}",
     "{{ bootstrap }}/fonts/glyphicons-halflings-regular.ttf": "fonts/{{ filename }}",
     "{{ bootstrap }}/fonts/glyphicons-halflings-regular.woff": "fonts/{{ filename }}",
+    "{{ bootstrap }}/fonts/glyphicons-halflings-regular.woff2": "fonts/{{ filename }}",
     "{{ react }}/react-with-addons-0.13.3.min.js": "js/react.min.js",
+    "{{ react }}/react-with-addons-0.13.3.js": "js/react.js",
     "{{ react }}/JSXTransformer-0.13.3.js": "js/JSXTransformer.js",
     "{{ github }}/chjj/marked/v0.3.3/marked.min.js": "js/{{ filename }}"
   }

@@ -3,26 +3,21 @@
 {% block content %}
   <div class="row section">
     <div class="col-md-12">
-      <div>
-        <div id="conversation"></div>
-      </div>
-    </div>
-    <div class="col-md-12">
-      <div class="form-group">
-        <label for="message-box"></label>
-        <textarea class="form-control" rows="3" id="message-box" placeholder="type your messages here"></textarea>
-      </div>
-      <div class="form-group">
-        <button id="send-msg" class="btn btn-default">Send</button>
-      </div>
+      <div id="conversation"></div>
     </div>
   </div>
 {% endblock %}
 
 {% block extra_js %}
-  <div id="ws_url" data-value="{{ ws_url }}"></div>
-  <div id="ws-url-ref" data-value="{{ ws_url }}"></div>
-  <script src="{{ static('libs/js/react.min.js') }}"></script>
+  <script>
+    var django_vars = {
+      ws_url: '{{ ws_url }}',
+      conversation_id: '{{ object.id }}',
+      operator: null,
+      customer: 'testing@example.com'
+    }
+  </script>
+  <script src="{{ static('libs/js/react.js') }}"></script>
   <script src="{{ static('libs/js/JSXTransformer.js') }}"></script>
   <script src="{{ static('libs/js/marked.min.js') }}"></script>
   <script type="text/jsx" src="{{ static('js/conversation.js') }}"></script>
