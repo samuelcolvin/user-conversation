@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.sites.models import Site
 from django.db import transaction
 from django.shortcuts import redirect
+from django.contrib.auth.tokens import default_token_generator
 from django.views.generic import TemplateView, DetailView, ListView, FormView
 
 from .models import Conversation, Customer
@@ -67,15 +67,3 @@ operator_conversation_view = OperatorConversationView.as_view()
 
 # FIXME
 customer_conversation_view = OperatorConversationView.as_view()
-
-class LowLevelView(TemplateView):
-    template_name = 'low_level.jinja'
-
-    def get_context_data(self, **kwargs):
-        kwargs.update(
-            title='Low level websocket test',
-            ws_url=get_ws_url(self.request),
-        )
-        return super(LowLevelView, self).get_context_data(**kwargs)
-
-low_level_view = LowLevelView.as_view()

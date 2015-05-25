@@ -27,6 +27,7 @@ INSTALLED_APPS = (
 
     'django_extensions',
     'django_jinja',
+    'django_websockets',
     'chat'
 )
 

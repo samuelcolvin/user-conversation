@@ -19,14 +19,13 @@ function WebsocketWrapper(){
     this.msgs = function(operator, messages){
       console.log('on_msgs:', operator, messages, 'nothing attached');
     };
-  };
+  }
   this.actions = new Actions();
 
   conn.onmessage = function(evt){
     var action = evt.data.split(':', 1)[0];
     var operator = evt.data.substr(action.length + 1, 1);
     var text = evt.data.substr(action.length + 2);
-    console.log(action, operator, text);
     ws.actions[action](operator, text);
   };
 
@@ -53,7 +52,7 @@ var Message = React.createClass({
 
 var MessageList = React.createClass({
   render: function() {
-    var messageNodes = this.props.data.map(function (message, i) {
+    var messages = this.props.data.map(function (message, i) {
       return (
         <Message author={message.author} key={i}>
           {message.text}
@@ -63,7 +62,7 @@ var MessageList = React.createClass({
     var style = {height: ($(window).height() - 150) + 'px'};
     return (
       <div className="message-list" style={style}>
-        {messageNodes}
+        {messages}
       </div>
     );
   }
@@ -76,7 +75,6 @@ var MessageForm = React.createClass({
     if (!text) {
       return;
     }
-    console.log(text)
     ws.send('msg', text);
     React.findDOMNode(this.refs.text).value = '';
   },
@@ -109,7 +107,6 @@ var Conversation = React.createClass({
       } else{
         this.state.data = messages;
       }
-
       this.setState({data: this.state.data});
     }.bind(this);
   },
